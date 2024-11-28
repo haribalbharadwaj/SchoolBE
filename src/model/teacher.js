@@ -31,8 +31,8 @@ const teacherSchema = new mongoose.Schema({
     required: true,
   },
   assignedClass: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Class', // Reference to the class the teacher is assigned to
+    type: String,
+    required: true, // Reference to the class the teacher is assigned to
   },
 }, { timestamps: true });
 
