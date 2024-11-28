@@ -7,6 +7,7 @@ exports.createTeacher = async (req, res) => {
     await teacher.save();
     res.status(201).json({ message: 'Teacher created successfully', teacher });
   } catch (err) {
+    console.error('Error saving teacher:', err.message);  // Log the error
     res.status(500).json({ error: err.message });
   }
 };

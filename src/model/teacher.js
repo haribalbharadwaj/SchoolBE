@@ -32,8 +32,10 @@ const teacherSchema = new mongoose.Schema({
   },
   assignedClass: {
     type: String,
-    required: true, // Reference to the class the teacher is assigned to
+    required: true,
+    // Temporarily remove regex validation
   },
+ 
 }, { timestamps: true });
 
 module.exports = mongoose.model('Teacher', teacherSchema);
