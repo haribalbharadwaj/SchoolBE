@@ -11,8 +11,13 @@ const classSchema = new mongoose.Schema({
     required: true,
   },
   teacher: {
-    type: Number,
-    required:true,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Teacher',  // ObjectId reference to the Teacher model
+    required: true
+  },
+  teacherName: {
+    type: String,  // Store Teacher name here
+    required: true
   },
   studentFees: {
     type: Number,

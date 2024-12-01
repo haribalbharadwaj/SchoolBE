@@ -8,7 +8,7 @@ const studentSchema = new mongoose.Schema({
   },
   gender: {
     type: String,
-    enum: ['Male', 'Female', 'Other'],
+    enum: ['male', 'female', 'other'],
     required: true,
   },
   dob: {
@@ -18,10 +18,15 @@ const studentSchema = new mongoose.Schema({
   feesPaid: {
     type: Boolean,
     default: false,
-  },
+  }, 
   class: {
-    type: String,
-    required: true, 
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Class',  // ObjectId reference to the Class mod
+    required: true
+  },
+  className: {
+    type: String,  // Store class name here
+    required: true
   },
   contactDetails: {
     phone: { type: String, required: true, unique: true  }, // Make this optional
