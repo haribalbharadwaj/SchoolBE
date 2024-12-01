@@ -100,9 +100,18 @@ exports.getStudentById = async (req, res) => {
 
 exports.updateStudent = async (req, res) => {
   try {
-    const { class: updatedClassId } = req.body; // Extract class ID if it's provided in the update request
+    const { class: updatedClassId,contactDetails: { email } = {}  } = req.body; // Extract class ID if it's provided in the update request
 
-    let updatedData = req.body; // Default updated data to what's in the request bod
+    let updatedData = req.body; // Default updated data to what's in the request body
+
+    if (email) {
+      // Check if another student already has this email (excluding the current student)
+      const existingStudent = await Student.findOne({ 'contactDetails.email': email });
+
+      if (existingStudent && existingStudent._id.toString() !== req.params.id) {
+        return res.status(400).json({ error: 'Email already exists' });
+      }
+    }
 
     // If the class field is being updated, fetch the new class details
     if (updatedClassId) {
@@ -122,7 +131,7 @@ exports.updateStudent = async (req, res) => {
     res.status(200).json({ message: 'Student updated successfully', student });
   } catch (err) {
     console.error('Error updating student:', err);
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ error: 'An error occurred while updating the student.'});
   }
 };
 
